@@ -1,12 +1,12 @@
-const express = require("express");
-const axios = require("axios");
-const cors = require("cors");
+import express, { json } from "express";
+import { get } from "axios";
+import cors from "cors";
 
 const app = express();
 const PORT = process.env.PORT || 1417;
 
 app.use(cors());
-app.use(express.json()); // Middleware to parse JSON requests
+app.use(json()); // Middleware to parse JSON requests
 
 // Translation API Endpoint
 app.get("/translate", async (req, res) => {
@@ -22,7 +22,7 @@ app.get("/translate", async (req, res) => {
         const url = `https://lingva.ml/api/v1/${source}/${target}/${encodeURIComponent(text)}`;
 
         // Make the API request
-        const response = await axios.get(url);
+        const response = await get(url);
 
         // Send back the API response
         res.json(response.data);
